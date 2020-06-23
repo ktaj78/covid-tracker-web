@@ -11,7 +11,6 @@ const CountiesPage = (props) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const query = {};
 			const result = await fetch("/api/user/counties", {
 				method: "GET",
 				headers: {
@@ -24,11 +23,11 @@ const CountiesPage = (props) => {
 			setSelectedCounties(body["counties"]);
 		};
 		fetchData();
-	}, []);
+	}, [props.auth]);
 
 	const handleChange = async (selected) => {
 		setSelectedCounties(selected);
-		const result = await fetch("/api/user/counties", {
+		await fetch("/api/user/counties", {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${props.auth.getAccessToken()}`,

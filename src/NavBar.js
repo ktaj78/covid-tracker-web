@@ -43,15 +43,6 @@ const NavigationBar = (props) => {
 					{isAuthenticated() && (
 						<>
 							<NavLink
-								to="/counties"
-								className="d-inline p-2 bg-light text-dark"
-								activeStyle={{
-									fontWeight: "bold",
-								}}
-							>
-								My Counties
-							</NavLink>
-							<NavLink
 								to="/states"
 								className="d-inline p-2 bg-light text-dark"
 								activeStyle={{
@@ -60,12 +51,23 @@ const NavigationBar = (props) => {
 							>
 								My States
 							</NavLink>
+							<NavLink
+								to="/counties"
+								className="d-inline p-2 bg-light text-dark"
+								activeStyle={{
+									fontWeight: "bold",
+								}}
+							>
+								My Counties
+							</NavLink>
 						</>
 					)}
 				</Nav>
 				{profile ? (
 					<Navbar.Text>Signed in as: {profile.name}</Navbar.Text>
-				) : null}
+				) : (
+					<Navbar.Text>Error logging in {profileError}</Navbar.Text>
+				)}
 				<Form inline>
 					<Button onClick={isAuthenticated() ? logout : login}>
 						{isAuthenticated() ? "Log Out" : "Log In"}

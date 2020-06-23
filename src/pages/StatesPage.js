@@ -25,11 +25,11 @@ const StatesPage = (props) => {
 			setSelectedStates(body["states"]);
 		};
 		fetchData();
-	}, []);
+	}, [props.auth]);
 
 	const handleChange = async (selected) => {
 		setSelectedStates(selected);
-		const result = await fetch("/api/user/states", {
+		await fetch("/api/user/states", {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${props.auth.getAccessToken()}`,
@@ -37,7 +37,6 @@ const StatesPage = (props) => {
 			},
 			body: JSON.stringify({ states: selected }),
 		});
-		const body = await result.json();
 	};
 
 	const handleSearch = async (query) => {
@@ -59,7 +58,7 @@ const StatesPage = (props) => {
 				<Row>
 					<Col>
 						<StatesSearch
-							name="state"
+							name="State Search"
 							label="state"
 							options={searchStates}
 							defaultOption="Search States"

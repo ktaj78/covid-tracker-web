@@ -17,8 +17,8 @@ const StateTable = ({ state }) => {
 			<Table striped bordered size="sm" style={{ width: "100%" }}>
 				<tbody>
 					<tr>
+						<td>Covid Score</td>
 						<td>
-							Health Score:{" "}
 							<NumberFormat
 								value={state.healthScore}
 								displayType={"text"}
@@ -28,43 +28,69 @@ const StateTable = ({ state }) => {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<NumberFormat
-								value={state.totalDeaths}
-								displayType={"text"}
-								thousandSeparator={true}
-							/>{" "}
-							total deaths
-						</td>
-					</tr>
-					<tr>
+						<td>Total Cases</td>
 						<td>
 							<NumberFormat
 								value={state.totalCases}
 								displayType={"text"}
 								thousandSeparator={true}
-							/>{" "}
-							total cases
+							/>
 						</td>
 					</tr>
 					<tr>
+						<td>Increase in Cases</td>
 						<td>
 							<NumberFormat
-								value={state.peakDeaths}
+								value={state.caseIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
+								decimalScale={2}
+								suffix={"%"}
 							/>{" "}
-							peak deaths on {state.peakDeathsDate}
 						</td>
 					</tr>
 					<tr>
+						<td>Peak Cases</td>
 						<td>
 							<NumberFormat
 								value={state.peakCases}
 								displayType={"text"}
 								thousandSeparator={true}
 							/>{" "}
-							peak cases on {state.peakCasesDate}
+							({state.peakCasesDate})
+						</td>
+					</tr>
+					<tr>
+						<td>Total Deaths</td>
+						<td>
+							<NumberFormat
+								value={state.totalDeaths}
+								displayType={"text"}
+								thousandSeparator={true}
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>Increase in Deaths</td>
+						<td>
+							<NumberFormat
+								value={state.deathIncrease}
+								displayType={"text"}
+								thousandSeparator={true}
+								decimalScale={2}
+								suffix={"%"}
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>Peak Deaths</td>
+						<td>
+							<NumberFormat
+								value={state.peakDeaths}
+								displayType={"text"}
+								thousandSeparator={true}
+							/>{" "}
+							({state.peakDeathsDate})
 						</td>
 					</tr>
 				</tbody>

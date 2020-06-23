@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import NumberFormat from "react-number-format";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
@@ -14,14 +14,12 @@ const CountiesSearch = ({
 	error,
 	options,
 }) => {
-	const [isLoading, setIsLoading] = useState(false);
 	return (
 		<>
 			<AsyncTypeahead
 				id="select-typeahead"
 				labelKey={label}
 				filterBy={["county", "state"]}
-				isLoading={isLoading}
 				onChange={onChange}
 				onSearch={onSearch}
 				options={options}

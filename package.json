@@ -34,7 +34,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"start:server": "npx babel-node ../my-covid-backend/src/server.js"
+		"start:server": "npx nodemon --exec npx babel-node ../covid-tracker-server/src/server.js"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -54,6 +54,8 @@
 	"devDependencies": {
 		"@babel/core": "^7.10.2",
 		"@babel/node": "^7.10.1",
-		"@babel/preset-env": "^7.10.2"
+		"@babel/preset-env": "^7.10.2",
+		"dotenv": "^8.2.0",
+		"nodemon": "^2.0.4"
 	}
 }

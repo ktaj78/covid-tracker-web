@@ -138,7 +138,7 @@ const HomePage = (props) => {
 			setImprovingStates(await states.json());
 		};
 		fetchData();
-	}, []);
+	}, [props.auth]);
 	return (
 		<Container>
 			<Row>

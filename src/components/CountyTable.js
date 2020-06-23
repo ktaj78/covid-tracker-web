@@ -19,8 +19,8 @@ const CountyTable = ({ county }) => {
 			<Table striped bordered size="sm" style={{ width: "100%" }}>
 				<tbody>
 					<tr>
+						<td>Covid Score</td>
 						<td>
-							Health Score:{" "}
 							<NumberFormat
 								value={county.healthScore}
 								displayType={"text"}
@@ -30,43 +30,69 @@ const CountyTable = ({ county }) => {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<NumberFormat
-								value={county.totalDeaths}
-								displayType={"text"}
-								thousandSeparator={true}
-							/>{" "}
-							total deaths
-						</td>
-					</tr>
-					<tr>
+						<td>Total Cases</td>
 						<td>
 							<NumberFormat
 								value={county.totalCases}
 								displayType={"text"}
 								thousandSeparator={true}
-							/>{" "}
-							total cases
+							/>
 						</td>
 					</tr>
 					<tr>
+						<td>Increase in Cases</td>
 						<td>
 							<NumberFormat
-								value={county.peakDeaths}
+								value={county.caseIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
+								decimalScale={2}
+								suffix={"%"}
 							/>{" "}
-							peak deaths on {county.peakDeathsDate}
 						</td>
 					</tr>
 					<tr>
+						<td>Peak Cases</td>
 						<td>
 							<NumberFormat
 								value={county.peakCases}
 								displayType={"text"}
 								thousandSeparator={true}
 							/>{" "}
-							peak cases on {county.peakCasesDate}
+							({county.peakCasesDate})
+						</td>
+					</tr>
+					<tr>
+						<td>Total Deaths</td>
+						<td>
+							<NumberFormat
+								value={county.totalDeaths}
+								displayType={"text"}
+								thousandSeparator={true}
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>Increase in Deaths</td>
+						<td>
+							<NumberFormat
+								value={county.deathIncrease}
+								displayType={"text"}
+								thousandSeparator={true}
+								decimalScale={2}
+								suffix={"%"}
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>Peak Deaths</td>
+						<td>
+							<NumberFormat
+								value={county.peakDeaths}
+								displayType={"text"}
+								thousandSeparator={true}
+							/>{" "}
+							({county.peakDeathsDate})
 						</td>
 					</tr>
 				</tbody>
