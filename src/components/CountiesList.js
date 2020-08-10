@@ -12,12 +12,12 @@ const CountiesList = ({ counties }) => {
 			const fips = counties.map((c) => {
 				return c.fips;
 			});
-			const result = await fetch("/api/counties/fipssearch", {
+			const result = await fetch("/api/counties/summary", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ fips: fips }),
+				body: JSON.stringify({ query: { fips: { $in: fips } } }),
 			});
 			const body = await result.json();
 			await setCountiesData(body);

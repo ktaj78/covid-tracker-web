@@ -5,6 +5,8 @@ import NumberFormat from "react-number-format";
 
 const StateTable = ({ state }) => {
 	// add useEffect to load state info with fips
+	const decimalScale = 0
+	
 	return (
 		<div
 			style={
@@ -23,7 +25,7 @@ const StateTable = ({ state }) => {
 								value={state.healthScore}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 							/>
 						</td>
 					</tr>
@@ -44,7 +46,7 @@ const StateTable = ({ state }) => {
 								value={state.caseIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 								suffix={"%"}
 							/>{" "}
 						</td>
@@ -77,7 +79,7 @@ const StateTable = ({ state }) => {
 								value={state.deathIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 								suffix={"%"}
 							/>
 						</td>

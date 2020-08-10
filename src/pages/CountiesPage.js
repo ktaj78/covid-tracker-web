@@ -20,14 +20,13 @@ const CountiesPage = (props) => {
 			});
 			const body = await result.json();
 
-			setSelectedCounties(body["counties"]);
+			setSelectedCounties(body["counties"] || []);
 		};
 		fetchData();
 	}, [props.auth]);
 
 	const handleChange = async (selected) => {
-		setSelectedCounties(selected);
-		await fetch("/api/user/counties", {
+		const result = await fetch("/api/user/counties", {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${props.auth.getAccessToken()}`,
@@ -35,6 +34,8 @@ const CountiesPage = (props) => {
 			},
 			body: JSON.stringify({ counties: selected }),
 		});
+		const body = await result.json();
+		setSelectedCounties(body["value"]["counties"] || []);
 	};
 
 	const handleSearch = async (query) => {

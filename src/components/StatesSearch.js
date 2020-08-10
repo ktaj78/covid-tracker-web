@@ -11,6 +11,7 @@ const StatesSearch = ({
 	defaultOption,
 	selected,
 	error,
+	isLoading,
 	options,
 }) => {
 	return (
@@ -23,6 +24,7 @@ const StatesSearch = ({
 				options={options}
 				placeholder={defaultOption}
 				selected={selected}
+				isLoading={isLoading}
 				renderMenuItemChildren={(option) => (
 					<div>
 						{option.state}

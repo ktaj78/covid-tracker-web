@@ -8,7 +8,18 @@ const TableHelpers = () => {
 				value={cell}
 				displayType={"text"}
 				thousandSeparator={true}
-				decimalScale={2}
+				decimalScale={0}
+			/>
+		);
+	};
+
+	const decimalFormatter = (cell, row) => {
+		return (
+			<NumberFormat
+				value={cell}
+				displayType={"text"}
+				thousandSeparator={true}
+				decimalScale={1}
 			/>
 		);
 	};
@@ -19,12 +30,12 @@ const TableHelpers = () => {
 				value={cell}
 				displayType={"text"}
 				thousandSeparator={true}
-				decimalScale={2}
+				decimalScale={0}
 				suffix={"%"}
 			/>
 		);
 	};
-	return { numberFormatter, percentFormatter };
+	return { numberFormatter, decimalFormatter, percentFormatter };
 };
 
 export default TableHelpers();

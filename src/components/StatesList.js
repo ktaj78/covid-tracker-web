@@ -12,12 +12,12 @@ const StatesList = ({ states }) => {
 			const fips = states.map((s) => {
 				return s.fips;
 			});
-			const result = await fetch("/api/states/fipssearch", {
+			const result = await fetch("/api/states/summary", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ fips: fips }),
+				body: JSON.stringify({ query: { fips: { $in: fips } } }),
 			});
 			const body = await result.json();
 			await setStatesData(body);

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const CountyTable = ({ county }) => {
 	// add useEffect to load county info with fips
+	const decimalScale = 0
 	return (
 		<div
 			style={
@@ -25,7 +26,7 @@ const CountyTable = ({ county }) => {
 								value={county.healthScore}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 							/>
 						</td>
 					</tr>
@@ -46,7 +47,7 @@ const CountyTable = ({ county }) => {
 								value={county.caseIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 								suffix={"%"}
 							/>{" "}
 						</td>
@@ -79,7 +80,7 @@ const CountyTable = ({ county }) => {
 								value={county.deathIncrease}
 								displayType={"text"}
 								thousandSeparator={true}
-								decimalScale={2}
+								decimalScale={decimalScale}
 								suffix={"%"}
 							/>
 						</td>

@@ -11,8 +11,10 @@ const StatesPage = (props) => {
 
 	// Only a list of fips
 	const [selectedStates, setSelectedStates] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchData = async () => {
 			const result = await fetch("/api/user/states", {
 				method: "GET",
@@ -22,14 +24,15 @@ const StatesPage = (props) => {
 				},
 			});
 			const body = await result.json();
-			setSelectedStates(body["states"]);
+			setSelectedStates(body["states"] || []);
 		};
 		fetchData();
+		setIsLoading(false);
 	}, [props.auth]);
 
 	const handleChange = async (selected) => {
-		setSelectedStates(selected);
-		await fetch("/api/user/states", {
+		setIsLoading(true);
+		const result = await fetch("/api/user/states", {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${props.auth.getAccessToken()}`,
@@ -37,6 +40,9 @@ const StatesPage = (props) => {
 			},
 			body: JSON.stringify({ states: selected }),
 		});
+		const body = await result.json();
+		setSelectedStates(body["value"]["states"] || []);
+		setIsLoading(false);
 	};
 
 	const handleSearch = async (query) => {
@@ -65,6 +71,7 @@ const StatesPage = (props) => {
 							selected={selectedStates}
 							onChange={handleChange}
 							onSearch={handleSearch}
+							isLoading={isLoading}
 						></StatesSearch>
 					</Col>
 				</Row>

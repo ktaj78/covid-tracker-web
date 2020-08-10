@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/NavBar";
+import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -25,7 +25,7 @@ const NavigationBar = (props) => {
 	};
 
 	return (
-		<Navbar bg="light" expand="lg">
+		<Navbar bg="light" expand="sm">
 			<Navbar.Brand>My Corona Tracker</Navbar.Brand>
 			<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			<Navbar.Collapse id="basic-navbar-nav">

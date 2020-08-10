@@ -71,12 +71,12 @@ const StatePage = ({ match }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const result = await fetch("/api/states/fipssearch", {
+			const result = await fetch("/api/states", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ fips: [fips] }),
+				body: JSON.stringify({ query: { fips: { $in: [fips] } } }),
 			});
 			const body = await result.json();
 			setState(body[0]);
@@ -92,7 +92,7 @@ const StatePage = ({ match }) => {
 					<StateTable state={state}></StateTable>
 				</Col>
 			</Row>
-			<Row height>
+			<Row>
 				<Col>
 					<h4>Daily Metrics</h4>
 					<ReactbootStrapTable

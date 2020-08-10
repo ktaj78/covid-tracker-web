@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const HomePage = (props) => {
 	const [regressingStates, setRegressingStates] = useState([]);
 	const [regressingCounties, setRegressingCounties] = useState([]);
-	const [improvingCounties, setImprovingCounties] = useState([]);
-	const [improvingStates, setImprovingStates] = useState([]);
+	// const [improvingCounties, setImprovingCounties] = useState([]);
+	// const [improvingStates, setImprovingStates] = useState([]);
 
 	const stateFormatter = (cell, row) => {
 		return <Link to={`/state/${row.fips}`}>{cell}</Link>;
@@ -22,9 +22,9 @@ const HomePage = (props) => {
 
 	const rowFormatter = (row, rowIndex) => {
 		let classes = null;
-		if (row.healthScore > 1.2) classes = "text-danger";
-		else if (row.healthScore > 0.8) classes = "text-warning";
-		else if (row.healthScore < 0.8) classes = "text-success";
+		if (row.healthScore > 1.25) classes = "text-danger";
+		else if (row.healthScore > 0.75) classes = "text-warning";
+		else if (row.healthScore <= 0.75) classes = "text-success";
 		return classes;
 	};
 	const stateColumns = [
@@ -43,7 +43,7 @@ const HomePage = (props) => {
 			dataField: "healthScore",
 			text: "Covid Score",
 			type: "number",
-			formatter: TableHelper.numberFormatter,
+			formatter: TableHelper.decimalFormatter,
 			sort: true,
 		},
 		{
@@ -66,6 +66,21 @@ const HomePage = (props) => {
 			type: "date",
 			sort: true,
 		},
+		{
+			dataField: "totalCases",
+			text: "Total Cases",
+			type: "number",
+			formatter: TableHelper.numberFormatter,
+			sort: true,
+		},
+		{
+			dataField: "totalDeaths",
+			text: "Total Deaths",
+			type: "number",
+			formatter: TableHelper.numberFormatter,
+			sort: true,
+		},
+		
 	];
 
 	let countyColumns = [
@@ -81,61 +96,57 @@ const HomePage = (props) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			let counties = await fetch("/api/counties", {
+			let counties = await fetch("/api/counties/summary", {
 				method: "POST",
 				headers: {
-					Authorization: `Bearer ${props.auth.getAccessToken()}`,
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					query: { healthScore: { $gt: 1 } },
-					sort: { healthScore: -1, totalCases: -1 },
-					limit: 30,
+					// query: { healthScore: { $gt: 1 } },
+					sort: { totalCases: -1 },
+					limit: 60,
 				}),
 			});
 			setRegressingCounties(await counties.json());
 
-			counties = await fetch("/api/counties", {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${props.auth.getAccessToken()}`,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					query: { healthScore: { $lt: 1 } },
-					sort: { healthScore: 1, totalCases: 1 },
-					limit: 30,
-				}),
-			});
-			setImprovingCounties(await counties.json());
+			// counties = await fetch("/api/counties/summary", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify({
+			// 		query: { healthScore: { $lt: 1 } },
+			// 		sort: { healthScore: 1, totalCases: 1 },
+			// 		limit: 60,
+			// 	}),
+			// });
+			// setImprovingCounties(await counties.json());
 
-			let states = await fetch("/api/states", {
+			let states = await fetch("/api/states/summary", {
 				method: "POST",
 				headers: {
-					Authorization: `Bearer ${props.auth.getAccessToken()}`,
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					query: { healthScore: { $gt: 1 } },
-					sort: { healthScore: -1 },
-					limit: 30,
+					// query: { healthScore: { $gt: 1 } },
+					sort: { totalCases: -1 },
+					limit: 60,
 				}),
 			});
 			setRegressingStates(await states.json());
 
-			states = await fetch("/api/states", {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${props.auth.getAccessToken()}`,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					query: { healthScore: { $lt: 1 } },
-					sort: { healthScore: 1, totalCases: 1 },
-					limit: 30,
-				}),
-			});
-			setImprovingStates(await states.json());
+			// states = await fetch("/api/states/summary", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify({
+			// 		query: { healthScore: { $lt: 1 } },
+			// 		sort: { healthScore: 1, totalCases: 1 },
+			// 		limit: 60,
+			// 	}),
+			// });
+			// setImprovingStates(await states.json());
 		};
 		fetchData();
 	}, [props.auth]);
@@ -143,7 +154,7 @@ const HomePage = (props) => {
 		<Container>
 			<Row>
 				<Col>
-					<h4>States Trending Up ({regressingStates.length})</h4>
+					<h4>States ({regressingStates.length})</h4>
 					<ReactbootStrapTable
 						keyField="fips"
 						data={regressingStates}
@@ -155,7 +166,7 @@ const HomePage = (props) => {
 						rowClasses={rowFormatter}
 					></ReactbootStrapTable>
 				</Col>
-				<Col>
+				{/* <Col>
 					<h4>States Trending Down ({improvingStates.length})</h4>
 					<ReactbootStrapTable
 						keyField="fips"
@@ -167,7 +178,7 @@ const HomePage = (props) => {
 						scrollTop={"Bottom"}
 						rowClasses={rowFormatter}
 					></ReactbootStrapTable>
-				</Col>
+				</Col> */}
 			</Row>
 			<Row>
 				<Col>
@@ -183,7 +194,7 @@ const HomePage = (props) => {
 						rowClasses={rowFormatter}
 					></ReactbootStrapTable>
 				</Col>
-				<Col>
+				{/* <Col>
 					<h4>Counties Trending Down</h4>
 					<ReactbootStrapTable
 						keyField="fips"
@@ -195,7 +206,7 @@ const HomePage = (props) => {
 						scrollTop={"Bottom"}
 						rowClasses={rowFormatter}
 					></ReactbootStrapTable>
-				</Col>
+				</Col> */}
 			</Row>
 		</Container>
 	);

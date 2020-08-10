@@ -66,12 +66,12 @@ const CountyPage = ({ match }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const result = await fetch("/api/counties/fipssearch", {
+			const result = await fetch("/api/counties", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ fips: [fips] }),
+				body: JSON.stringify({ query: { fips: { $in: [fips] } } }),
 			});
 			const body = await result.json();
 			setCounty(body[0]);
